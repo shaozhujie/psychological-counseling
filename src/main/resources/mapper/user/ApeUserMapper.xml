@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.counseling.mapper.UserMapper">
+    <select id="getUserPage" resultType="user">
+        select
+            u.*
+        from user u
+        <where>
+            1=1
+            <if test="ew.userName != null and ew.userName != ''">
+                and u.user_name like concat('%',#{ew.userName},'%')
+            </if>
+            <if test="ew.tel != null and ew.tel != ''">
+                and u.tel like concat('%',#{ew.tel},'%')
+            </if>
+            <if test="ew.status != null">
+                and u.status = #{ew.status}
+            </if>
+            <if test="ew.userType != null">
+                and u.user_type = #{ew.userType}
+            </if>
+            <if test="ew.sex != null">
+                and u.sex = #{ew.sex}
+            </if>
+            <if test="ew.city != null and ew.city != ''">
+                and u.city = #{ew.city}
+            </if>
+            <if test="ew.types != null and ew.types != ''">
+                and u.types like concat('%',#{ew.types},'%')
+            </if>
+        </where>
+    </select>
+    <select id="getUserPageByType" resultType="user">
+        select
+        u.*
+        from user u inner join con_set s on u.id = s.user_id
+        <where>
+            1=1
+            <if test="ew.userName != null and ew.userName != ''">
+                and u.user_name like concat('%',#{ew.userName},'%')
+            </if>
+            <if test="ew.tel != null and ew.tel != ''">
+                and u.tel like concat('%',#{ew.tel},'%')
+            </if>
+            <if test="ew.status != null">
+                and u.status = #{ew.status}
+            </if>
+            <if test="ew.userType != null">
+                and u.user_type = #{ew.userType}
+            </if>
+            <if test="ew.sex != null">
+                and u.sex = #{ew.sex}
+            </if>
+            <if test="ew.city != null and ew.city != ''">
+                and u.city = #{ew.city}
+            </if>
+            <if test="ew.types != null and ew.types != ''">
+                and u.types like concat('%',#{ew.types},'%')
+            </if>
+            <if test="ew.sort == null">
+                order by u.star desc
+            </if>
+            <if test="ew.sort == 0">
+                order by s.price asc
+            </if>
+            <if test="ew.sort == 1">
+                order by s.price desc
+            </if>
+        </where>
+    </select>
+</mapper>
